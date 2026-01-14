@@ -22,7 +22,7 @@ struct SuperpositionCoinView: View {
             VStack(spacing: 0) {
                 // 1. Cabeçalho (Fixo no topo)
                 VStack(spacing: 4) {
-                    Text("PHASE 1: SUPERPOSIÇÃO")
+                    Text("PHASE 1: SUPERPOSITION")
                         .font(.system(size: 22, weight: .black, design: .monospaced))
                         .foregroundColor(.xiloCyan)
                     Text("THE COIN PARADOX")
