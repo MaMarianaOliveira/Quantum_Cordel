@@ -12,21 +12,20 @@ struct ContentView: View {
                 IntroGlitchView(onComplete: { mainVM.advanceToBriefing() })
                 
             case .mariBriefing:
-                // Usando a nova MariBriefingView.swift
                 MariBriefingView(onComplete: { mainVM.advanceToTutorial()  })
                 
-                
             case .tutorial:
-                SuperpositionCoinView(onComplete: { mainVM.advanceToEntangled() })
+                QuantumThreatView(onComplete: { mainVM.advanceToEntangled() })
                 
             case .entangled:
-                EntangledIntroductionView(onNext: { mainVM.advanceToChallenge() })
+                            // MUDANÇA: Usando o novo LatticeBriefingView em vez de EntangledIntroductionView
+                            LatticeBriefingView(onNext: { mainVM.advanceToChallenge() })
                 
             case .challenge:
-                // FASE 2: O Grid Emaranhado (Mari & Sombra)
-                let entangledConfig = LevelConfig(
-                    title: "PHASE 2: ENTANGLED",
-                    instruction: "You and your Shadow are entangled. Move to align BOTH on the targets.",
+                // FASE 2: KYBER / LATTICE (Antigo Entangled)
+                let latticeConfig = LevelConfig(
+                    title: "PROTOCOL: KYBER LATTICE",
+                    instruction: "Navigate the complex Grid. Align Mari & Shadow to generate the PQ3 Key.",
                     basis1: Vector(x: 50, y: 0),
                     basis2: Vector(x: 0, y: 50),
                     target: GridPoint(i: 2, j: 2),
@@ -37,15 +36,13 @@ struct ContentView: View {
                     themeColor: .xiloMagenta
                 )
                 
-                // Atualizado para o novo nome da classe que você definiu
-                EntangledView(
-                    viewModel: EntagledViewModels(config: entangledConfig, onComplete: {
+                LatticeView(
+                    viewModel: LatticeViewModels(config: latticeConfig, onComplete: {
                         mainVM.advanceToVictory()
                     })
                 )
                 
             case .victory:
-                // Usando a nova VictoryView.swift com o parâmetro onRestart
                 VictoryView {mainVM.resetGame() }
             }
         }

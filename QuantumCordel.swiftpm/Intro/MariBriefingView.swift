@@ -28,14 +28,14 @@ struct MariBriefingView: View {
                             .rotationEffect(.degrees(showText ? 360 : 0))
                             .animation(.linear(duration: 10).repeatForever(autoreverses: false), value: showText)
                     }
-                    Image("Mari").resizable().scaledToFit().clipShape(Circle()).frame(width: 220, height: 220)
+                    Image("Mari").resizable().scaledToFit().clipShape(Circle()).frame(width: 420, height: 420)
                         .overlay(Circle().stroke(Color.xiloMagenta.opacity(0.8), lineWidth: 2))
                         .scaleEffect(showMari ? 1 : 0.5).opacity(showMari ? 1 : 0)
                 }
-                Text("I'm Mariana").font(.system(size: 24, weight: .bold, design: .monospaced)).foregroundColor(.xiloMagenta).opacity(showMari ? 1 : 0)
+                Text("I'm Mariana").font(.system(size: 35, weight: .bold, design: .monospaced)).foregroundColor(.xiloMagenta).opacity(showMari ? 1 : 0)
                 
                 VStack {
-                    Text(displayedText).font(.system(size: 20, weight: .medium, design: .serif))
+                    Text(displayedText).font(.system(size: 27, weight: .medium, design: .serif))
                         .italic().lineSpacing(6).foregroundColor(.white).multilineTextAlignment(.center).frame(maxWidth: .infinity, minHeight: 180)
                 }
                 .padding(25).background(.ultraThinMaterial).cornerRadius(20).padding(.horizontal, 20).opacity(showMari ? 1 : 0)
