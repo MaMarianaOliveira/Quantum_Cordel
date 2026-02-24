@@ -7,17 +7,17 @@ struct IntroGlitchView: View {
     @State private var isVisible = false
     @State private var showButton = false
     
-    // Estados para o aviso de orientação
+    
     @State private var showOrientationNotice = true
     @State private var rotationDegree: Double = 90
     
     var body: some View {
         ZStack {
-            // FUNDO PADRÃO
+            //STANDARD BACKGROUND
             Image("transmissionbg").resizable().scaledToFill().edgesIgnoringSafeArea(.all).opacity(0.15)
             Color.xiloBlack.opacity(0.8).edgesIgnoringSafeArea(.all)
             
-            // 1. CONTEÚDO PRINCIPAL
+            // 1. MAIN CONTENT
             VStack(spacing: 30) {
                 Image(systemName: "atom")
                     .font(.system(size: 80)).foregroundColor(.xiloCyan)
@@ -49,7 +49,7 @@ struct IntroGlitchView: View {
             .blur(radius: showOrientationNotice ? 20 : 0)
             .opacity(showOrientationNotice ? 0 : 1)
             
-            // 2. OVERLAY DE ORIENTAÇÃO
+            // 2. Orientation Overlay
             if showOrientationNotice {
                 ZStack {
                     Color.xiloBlack.edgesIgnoringSafeArea(.all)
@@ -91,21 +91,18 @@ struct IntroGlitchView: View {
         }
     }
     
-    // MARK: - Lógica de Inicialização
+    // MARK: - Initialization Logic
     
     private func startBootSequence() {
-        // A música "som" inicia IMEDIATAMENTE junto com a instrução
         Task {
             await AudioManager.shared.playFullSoundtrack()
         }
         
-        // 1. Mantém o aviso por 2.5 segundos
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             withAnimation(.easeInOut(duration: 1.0)) {
                 showOrientationNotice = false
             }
             
-            // 2. Após o aviso sumir, inicia o efeito visual de Glitch
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 runOriginalLogic()
             }
@@ -117,13 +114,13 @@ struct IntroGlitchView: View {
         withAnimation(.easeIn(duration: 1.5)) { isVisible = true }
         
         Task {
-            // Verifica a duração do áudio para temporizar o botão
             if let asset = NSDataAsset(name: "som") {
                 do {
                     let tempPlayer = try AVAudioPlayer(data: asset.data)
-                    // O botão aparece após 20% da música
+                
                     let nanoseconds = UInt64((tempPlayer.duration * 1_000_000_000) * 0.2)
                     try await Task.sleep(nanoseconds: nanoseconds)
+                    
                 } catch {
                     try? await Task.sleep(nanoseconds: 3_000_000_000)
                 }

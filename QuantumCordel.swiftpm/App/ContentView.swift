@@ -18,11 +18,11 @@ struct ContentView: View {
                 QuantumThreatView(onComplete: { mainVM.advanceToEntangled() })
                 
             case .entangled:
-                            // MUDANÇA: Usando o novo LatticeBriefingView em vez de EntangledIntroductionView
+                            
                             LatticeBriefingView(onNext: { mainVM.advanceToChallenge() })
                 
             case .challenge:
-                // FASE 2: KYBER / LATTICE (Antigo Entangled)
+                // FASE 2: KYBER / LATTICE 
                 let latticeConfig = LevelConfig(
                     title: "PROTOCOL: KYBER LATTICE",
                     instruction: "Navigate the complex Grid. Align Mari & Shadow to generate the PQ3 Key.",

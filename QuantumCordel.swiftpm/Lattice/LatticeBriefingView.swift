@@ -7,7 +7,6 @@ struct LatticeBriefingView: View {
     @State private var showButton = false
     @State private var displayedText = ""
     
-    // Controle para interromper a digitação
     @State private var isTyping = false
     
     let cordelText = """
@@ -24,7 +23,6 @@ struct LatticeBriefingView: View {
     
     var body: some View {
         ZStack {
-            // CAMADA DE FUNDO (Captura o toque em toda a tela)
             ZStack {
                 Image("kyber")
                     .resizable()
@@ -95,7 +93,7 @@ struct LatticeBriefingView: View {
                 }
                 .padding()
             }
-            .contentShape(Rectangle()) // Garante que áreas vazias também detectem o toque
+            .contentShape(Rectangle())
             .onTapGesture {
                 if isTyping {
                     skipTypewriter()
@@ -110,7 +108,7 @@ struct LatticeBriefingView: View {
         }
     }
     
-    // MARK: - Lógica
+    // MARK: - Logic
     
     func animateEntrance() async {
         TechSound.play(.staticNoise)

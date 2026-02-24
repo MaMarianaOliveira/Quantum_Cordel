@@ -8,14 +8,12 @@ struct LatticeView: View {
 
     var body: some View {
         ZStack {
-            // Fundo
             Image("phase2bg").resizable().scaledToFill().opacity(0.1)
                 .edgesIgnoringSafeArea(.all)
                 .overlay(Color.xiloBlack.opacity(0.6))
                 .accessibilityHidden(true)
             
             VStack(spacing: 0) {
-                // 1. Cabeçalho
                 VStack(spacing: 4) {
                     Text("DEFENSE: THE LATTICE")
                         .font(.system(size: 30, weight: .black, design: .monospaced))
@@ -27,7 +25,7 @@ struct LatticeView: View {
                 
                 Spacer()
 
-                // 2. ÁREA DO JOGO (Grid Lattice)
+                // 2. Grid Lattice
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.xiloMagenta.opacity(0.8), lineWidth: 3)
@@ -42,8 +40,7 @@ struct LatticeView: View {
                                 }
                             }.stroke(Color.white.opacity(0.1), lineWidth: 1)
                         )
-                    
-                    // Portais (Alvos)
+                   
                     PortalView(color: .xiloCyan, size: 70)
                         .offset(x: CGFloat(viewModel.config.target.j) * gridSpacing,
                                 y: CGFloat(viewModel.config.target.i) * gridSpacing)
@@ -52,7 +49,6 @@ struct LatticeView: View {
                         .offset(x: CGFloat(viewModel.config.shadowTarget.j) * gridSpacing,
                                 y: CGFloat(viewModel.config.shadowTarget.i) * gridSpacing)
                     
-                    // Personagens
                     Image("Mari")
                         .resizable().scaledToFit().frame(width: 65, height: 65)
                         .shadow(color: .xiloCyan, radius: 10)
@@ -70,11 +66,9 @@ struct LatticeView: View {
                 
                 Spacer()
                 
-                // Guia Narrativo
+    
                 mariGuideComponent
-                
-                // 3. CONTROLES CONDICIONAIS
-                // O teclado some quando rosa encontra rosa e azul encontra azul
+              
                 if !viewModel.isLevelComplete {
                     controlsComponent
                         .padding(.bottom, 40)
@@ -83,15 +77,13 @@ struct LatticeView: View {
                             removal: .move(edge: .bottom).combined(with: .opacity)
                         ))
                 } else {
-                    // Espaço de respiro para a mensagem final aparecer centralizada
+                  
                     Spacer().frame(height: 120)
                 }
             }
         }
-        .animation(.spring(), value: viewModel.isLevelComplete) // Anima a saída do teclado
+        .animation(.spring(), value: viewModel.isLevelComplete)
     }
-    
-    // --- COMPONENTES ---
     
     var mariGuideComponent: some View {
         HStack(alignment: .center, spacing: 15) {
@@ -150,7 +142,6 @@ struct LatticeView: View {
     }
 }
 
-// --- SUB-VIEWS E ESTILOS MANTIDOS ---
 
 struct PortalView: View {
     let color: Color

@@ -48,7 +48,7 @@ class LatticeViewModels: ObservableObject {
         }
     }
     
-    // --- FUNÇÃO SUBSTITUÍDA COM LIMITAÇÃO DE GRADE ---
+    //--- FUNCTION REPLACED WITH GRID LIMITATION ---
     func move(di: Int, dj: Int) {
             let nextMariI = currentPos.i + di
             let nextMariJ = currentPos.j + dj
@@ -61,7 +61,6 @@ class LatticeViewModels: ObservableObject {
                 nextShadowJ -= dj
             }
             
-            // Limites da grade visual (do centro 0 até as bordas -2 e 2)
             let limit = 2
             
             let mariInBounds = nextMariI >= -limit && nextMariI <= limit &&
@@ -71,7 +70,7 @@ class LatticeViewModels: ObservableObject {
                                  nextShadowJ >= -limit && nextShadowJ <= limit
             
             if mariInBounds && shadowInBounds {
-                // Usamos animação para o movimento ser visível entrando no círculo
+
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                     currentPos.i = nextMariI
                     currentPos.j = nextMariJ
@@ -81,7 +80,6 @@ class LatticeViewModels: ObservableObject {
                 
                 TechSound.play(.move)
                 
-                // Verificação de vitória imediata após o movimento
                 if checkWinCondition() {
                     finishLevel()
                 }
@@ -112,11 +110,10 @@ class LatticeViewModels: ObservableObject {
             hintTimer?.invalidate()
             withAnimation {
                 showHint = false
-                isLevelComplete = true // Ativa o balão de encerramento
+                isLevelComplete = true
             }
             TechSound.play(.success)
-            
-            // Aumentamos o tempo para 3 segundos para dar tempo de ler o balão
+         
             DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                 self.onComplete()
             }

@@ -34,11 +34,11 @@ struct VictoryView: View {
                     .foregroundColor(.xiloCyan)
                     .opacity(showElements ? 1 : 0)
                 
-                // MUDANÇA NO POEMA
+            
                 VStack(spacing: 8) {
                     Text("The harvest tried, but could not break,")
                     
-                    // CORREÇÃO: De 'bake' (assar) para 'shake' (abalar)
+              
                     Text("The lattice shield no force can shake.")
                     
                     Text("Through vectors grid and error's might,")

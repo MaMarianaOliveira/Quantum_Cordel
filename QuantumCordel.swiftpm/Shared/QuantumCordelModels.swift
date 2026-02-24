@@ -1,13 +1,13 @@
 import SwiftUI
 
-// --- 1. EXTENSÕES VISUAIS ---
+// --- 1. VISUAL EXTENSIONS ---
 extension Color {
     static let xiloBlack = Color(red: 0.1, green: 0.1, blue: 0.1)
     static let xiloCyan = Color(red: 0.0, green: 1.0, blue: 1.0)
     static let xiloMagenta = Color(red: 1.0, green: 0.0, blue: 1.0)
     static let xiloYellow = Color(red: 1.0, green: 0.8, blue: 0.0)
     static let xiloGreen = Color(red: 0.0, green: 1.0, blue: 0.0)
-    static let xiloOrange = Color(red: 1.0, green: 0.5, blue: 0.0) // Cor da Sombra
+    static let xiloOrange = Color(red: 1.0, green: 0.5, blue: 0.0)
 }
 
 struct XiloStyle: ViewModifier {
@@ -22,7 +22,7 @@ struct XiloStyle: ViewModifier {
     }
 }
 
-// --- 2. MODELS (DADOS) ---
+// --- 2. MODELS ---
 
 struct Vector: Equatable {
     var x: Double
@@ -42,12 +42,13 @@ struct LevelConfig {
     let basis1: Vector
     let basis2: Vector
     
-    let target: GridPoint       // Alvo da Mari
+    let target: GridPoint
     
-    // NOVOS CAMPOS PARA ENTRELAÇAMENTO
-    let isEntangled: Bool       // Ativa o modo Sombra?
-    let shadowTarget: GridPoint // Alvo da Sombra (se houver)
-    let shadowStart: GridPoint  // Onde a sombra começa
+  
+    
+    let isEntangled: Bool
+    let shadowTarget: GridPoint
+    let shadowStart: GridPoint  
     
     let bgImageName: String
     let themeColor: Color

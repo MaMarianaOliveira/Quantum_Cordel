@@ -8,7 +8,6 @@ struct MariBriefingView: View {
     @State private var showButton = false
     @State private var displayedText = ""
     
-    // Controle para saber se a animação ainda está rodando
     @State private var isTyping = false
     
     let fullText = """
@@ -22,7 +21,6 @@ struct MariBriefingView: View {
     
     var body: some View {
         ZStack {
-            // FUNDO QUE CAPTURA O TOQUE EM QUALQUER LUGAR
             ZStack {
                 Image("sertaobg").resizable().scaledToFill().edgesIgnoringSafeArea(.all).opacity(0.1)
                 
@@ -82,7 +80,7 @@ struct MariBriefingView: View {
                 }
                 .padding()
             }
-            .contentShape(Rectangle()) // Garante que áreas vazias também detectem o toque
+            .contentShape(Rectangle())
             .onTapGesture {
                 if isTyping {
                     skipTypewriter()
@@ -97,7 +95,7 @@ struct MariBriefingView: View {
         }
     }
     
-    // MARK: - Lógica de Animação
+    //MARK: - Animation Logic
     
     func animateEntrance() async {
         TechSound.play(.staticNoise)
@@ -112,7 +110,7 @@ struct MariBriefingView: View {
         let chars = Array(fullText)
         displayedText = ""
         for char in chars {
-            // Se o usuário clicou para pular, interrompe o loop
+
             guard isTyping else { return }
             
             try? await Task.sleep(nanoseconds: 70_000_000)
@@ -122,7 +120,6 @@ struct MariBriefingView: View {
         withAnimation { showButton = true }
     }
     
-    // Função para pular a animação e mostrar o texto completo
     func skipTypewriter() {
         isTyping = false
         displayedText = fullText
