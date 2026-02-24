@@ -140,6 +140,7 @@ struct QuantumThreatView: View {
                                 Image(systemName: "shield.fill")
                             }
                         }.buttonStyle(XiloButtonStyleCompact())
+                            
                     }
                 }
                 .padding(.horizontal, 40)
@@ -209,14 +210,8 @@ struct QuantumThreatView: View {
 struct XiloButtonStyleCompact: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 20, weight: .bold))
-            .foregroundColor(.xiloBlack)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity)
-            .background(Color.xiloCyan)
-            .cornerRadius(10)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
-            .shadow(color: .xiloCyan.opacity(0.3), radius: 5, x: 0, y: 3)
+            .font(.headline.bold()).foregroundColor(.xiloBlack).padding()
+        .background(Color.xiloCyan).cornerRadius(8)
     }
 }
 
@@ -224,17 +219,8 @@ struct XiloButtonStyleCompact: ButtonStyle {
 struct XiloButtonStyleDanger: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(size: 20, weight: .bold))
-            .foregroundColor(.white)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity)
-            .background(Color.red.opacity(0.8))
-            .cornerRadius(10)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
-            .shadow(color: .red.opacity(0.5), radius: 10, x: 0, y: 0)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white, lineWidth: 1)
-            )
+            .font(.headline.bold()).foregroundColor(.white).padding()
+            .background(Color.red.opacity(0.8)).cornerRadius(8)
+            
     }
 }

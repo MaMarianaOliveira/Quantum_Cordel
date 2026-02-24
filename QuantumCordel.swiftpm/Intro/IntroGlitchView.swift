@@ -1,5 +1,5 @@
 import SwiftUI
-import AVFoundation // Necessário para ler a duração da música
+import AVFoundation
 
 struct IntroGlitchView: View {
     var onComplete: () -> Void
@@ -7,13 +7,18 @@ struct IntroGlitchView: View {
     @State private var isVisible = false
     @State private var showButton = false
     
+    // Estados para o aviso de orientação
+    @State private var showOrientationNotice = true
+    @State private var rotationDegree: Double = 90
+    
     var body: some View {
         ZStack {
+            // FUNDO PADRÃO
             Image("transmissionbg").resizable().scaledToFill().edgesIgnoringSafeArea(.all).opacity(0.15)
-            Color.xiloBlack.opacity(0.6).edgesIgnoringSafeArea(.all)
+            Color.xiloBlack.opacity(0.8).edgesIgnoringSafeArea(.all)
             
+            // 1. CONTEÚDO PRINCIPAL
             VStack(spacing: 30) {
-                // Ícone do Átomo (Visual preferido)
                 Image(systemName: "atom")
                     .font(.system(size: 80)).foregroundColor(.xiloCyan)
                     .offset(x: glitchOffset).opacity(isVisible ? 1 : 0)
@@ -41,41 +46,92 @@ struct IntroGlitchView: View {
                     .transition(.scale)
                 }
             }
+            .blur(radius: showOrientationNotice ? 20 : 0)
+            .opacity(showOrientationNotice ? 0 : 1)
+            
+            // 2. OVERLAY DE ORIENTAÇÃO
+            if showOrientationNotice {
+                ZStack {
+                    Color.xiloBlack.edgesIgnoringSafeArea(.all)
+                    
+                    VStack(spacing: 35) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.xiloCyan, lineWidth: 4)
+                                .frame(width: 100, height: 150)
+                                .rotationEffect(.degrees(rotationDegree))
+                            
+                            Image(systemName: "arrow.counterclockwise")
+                                .font(.title.bold())
+                                .foregroundColor(.xiloCyan)
+                        }
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: false)) {
+                                rotationDegree = 0
+                            }
+                        }
+                        
+                        VStack(spacing: 15) {
+                            Text("STABILIZING INTERFACE")
+                                .font(.system(size: 22, weight: .bold, design: .monospaced))
+                                .foregroundColor(.white)
+                            
+                            Text("KEEP THE DEVICE UPRIGHT")
+                                .font(.system(size: 14, design: .monospaced))
+                                .foregroundColor(.xiloCyan)
+                                .opacity(0.8)
+                        }
+                    }
+                }
+                .transition(.opacity)
+            }
         }
         .onAppear {
-            TechSound.play(.glitch)
-            withAnimation(.easeIn(duration: 1.5)) { isVisible = true }
-            
-            Task {
-                // 1. Começa a tocar a música
-                await AudioManager.shared.playFullSoundtrack()
-                
-                // 2. Calcula a duração exata do arquivo "som"
-                if let asset = NSDataAsset(name: "som") {
-                    do {
-                        // Cria um player temporário apenas para ler a duração (duration property)
-                        let tempPlayer = try AVAudioPlayer(data: asset.data)
-                        let durationInSeconds = tempPlayer.duration
-                        
-                        // Converte para nanosegundos para o Task.sleep
-                        let nanoseconds = UInt64(durationInSeconds * 1_000_000_000)
-                        
-                        // Espera a música terminar (ou completar o ciclo)
-                        try await Task.sleep(nanoseconds: nanoseconds)
-                        
-                    } catch {
-                        print("Erro ao ler duração do áudio")
-                        // Fallback: espera 3 segundos se der erro
-                        try? await Task.sleep(nanoseconds: 3_000_000_000)
-                    }
-                } else {
-                    // Fallback se não achar o asset
-                    try? await Task.sleep(nanoseconds: 2_000_000_000)
-                }
-                
-                // 3. Libera o botão
-                withAnimation(.spring()) { showButton = true }
+            startBootSequence()
+        }
+    }
+    
+    // MARK: - Lógica de Inicialização
+    
+    private func startBootSequence() {
+        // A música "som" inicia IMEDIATAMENTE junto com a instrução
+        Task {
+            await AudioManager.shared.playFullSoundtrack()
+        }
+        
+        // 1. Mantém o aviso por 2.5 segundos
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            withAnimation(.easeInOut(duration: 1.0)) {
+                showOrientationNotice = false
             }
+            
+            // 2. Após o aviso sumir, inicia o efeito visual de Glitch
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                runOriginalLogic()
+            }
+        }
+    }
+    
+    private func runOriginalLogic() {
+        TechSound.play(.glitch)
+        withAnimation(.easeIn(duration: 1.5)) { isVisible = true }
+        
+        Task {
+            // Verifica a duração do áudio para temporizar o botão
+            if let asset = NSDataAsset(name: "som") {
+                do {
+                    let tempPlayer = try AVAudioPlayer(data: asset.data)
+                    // O botão aparece após 20% da música
+                    let nanoseconds = UInt64((tempPlayer.duration * 1_000_000_000) * 0.2)
+                    try await Task.sleep(nanoseconds: nanoseconds)
+                } catch {
+                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                }
+            } else {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+            }
+            
+            withAnimation(.spring()) { showButton = true }
         }
     }
 }
