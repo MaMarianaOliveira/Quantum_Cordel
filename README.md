@@ -10,7 +10,7 @@ O jogo é guiado pela personagem **Mariana**, que apresenta o mundo quântico at
 
 ## 🎮 Mecânicas Principais
 
-### 1. Superposição Quântica (A Moeda)
+### 1. Superposição Quântica (A Moeda (Cadeado)) 
 * Explora o conceito de coexistência de estados.
 * O jogador aprende que, no nível atômico, as coisas não são apenas "zero ou um", mas uma combinação de vetores.
 
@@ -22,8 +22,7 @@ O jogo é guiado pela personagem **Mariana**, que apresenta o mundo quântico at
 ## 🛠️ Detalhes Técnicos
 
 * **Framework**: SwiftUI (100%).
-* **Arquitetura**: MVVM (Model-View-ViewModel).
-* **Animações**: Uso de `withAnimation` e transições `easeInOut` para simular a fluidez quântica.
+* **Arquitetura**: MVVM (Model-View-ViewModel)
 * **Áudio**: Feedback sonoro imersivo para ações de sucesso, movimento e erro.
 
 ## 🎨 Design e Assets
@@ -36,16 +35,4 @@ O projeto utiliza uma paleta de cores vibrante (**Ciano** e **Magenta**) que con
 1. Clone o repositório.
 2. Certifique-se de que os assets de imagem estão na pasta `Assets.xcassets`.
 3. Abra o projeto no **Xcode** ou **Swift Playgrounds**.
-4. Execute no simulador de iPad ou iPhone.
-
----
-
-### Exemplo de Lógica: O Movimento Emaranhado
-```swift
-// Lógica de espelhamento presente no EntagledViewModels.swift
-func move(di: Int, dj: Int) {
-    if config.isEntangled {
-        nextShadowI -= di // A inversão quântica dos eixos
-        nextShadowJ -= dj
-    }
-}
+4. Execute no simulador de iPad.
