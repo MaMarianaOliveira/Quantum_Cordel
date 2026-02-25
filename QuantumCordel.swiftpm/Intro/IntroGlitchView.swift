@@ -1,11 +1,5 @@
-//
-//  SwiftUIView.swift
-//  QuantumCordel
-//
-//  Created by mcro on 09/01/26.
-//
-
 import SwiftUI
+import AVFoundation
 
 struct IntroGlitchView: View {
     var onComplete: () -> Void
@@ -13,49 +7,128 @@ struct IntroGlitchView: View {
     @State private var isVisible = false
     @State private var showButton = false
     
+    
+    @State private var showOrientationNotice = true
+    @State private var rotationDegree: Double = 90
+    
     var body: some View {
         ZStack {
+            //STANDARD BACKGROUND
             Image("transmissionbg").resizable().scaledToFill().edgesIgnoringSafeArea(.all).opacity(0.15)
-            Color.xiloBlack.opacity(0.6).edgesIgnoringSafeArea(.all)
+            Color.xiloBlack.opacity(0.8).edgesIgnoringSafeArea(.all)
             
+            // 1. MAIN CONTENT
             VStack(spacing: 30) {
                 Image(systemName: "atom")
                     .font(.system(size: 80)).foregroundColor(.xiloCyan)
                     .offset(x: glitchOffset).opacity(isVisible ? 1 : 0)
+                    .shadow(color: .xiloCyan.opacity(0.5), radius: 10)
                 
-                Text("QUANTUM SYSTEM INITIALIZING...\nORIGIN: PERNAMBUCO, 2026")
+                Text("PQC DEFENSE INITIALIZING...\nORIGIN: BRAZIL - PERNAMBUCO, 2026")
                     .font(.system(.title2, design: .monospaced)).multilineTextAlignment(.center)
                     .foregroundColor(.xiloCyan).shadow(color: .xiloCyan, radius: 5)
                     .offset(x: -glitchOffset)
-                Text("LEARNING MODULES: SUPERPOSITION & ENTANGLEMENT")
-                                        .font(.system(size: 14, weight: .medium, design: .monospaced))
-                                        .foregroundColor(.white.opacity(0.7))
-                                        .padding(.top, 5)
+                
+                Text("LOADING MODULES: QUANTUM THREAT & KYBER LATTICE")
+                    .font(.system(size: 14, weight: .medium, design: .monospaced))
+                    .foregroundColor(.white.opacity(0.7))
+                    .padding(.top, 5)
                 
                 if showButton {
                     Button(action: {
                         TechSound.play(.success)
-                        // CORREÇÃO AQUI: Task e await necessários para actors
                         onComplete()
                     }) {
-                        Text("START QUANTUM JOURNEY")
+                        Text("START SIMULATION")
                             .font(.headline.bold()).foregroundColor(.xiloBlack).padding()
                             .background(Color.xiloCyan).cornerRadius(8)
                     }
                     .transition(.scale)
                 }
             }
+            .blur(radius: showOrientationNotice ? 20 : 0)
+            .opacity(showOrientationNotice ? 0 : 1)
+            
+            // 2. Orientation Overlay
+            if showOrientationNotice {
+                ZStack {
+                    Color.xiloBlack.edgesIgnoringSafeArea(.all)
+                    
+                    VStack(spacing: 35) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.xiloCyan, lineWidth: 4)
+                                .frame(width: 100, height: 150)
+                                .rotationEffect(.degrees(rotationDegree))
+                            
+                            Image(systemName: "arrow.counterclockwise")
+                                .font(.title.bold())
+                                .foregroundColor(.xiloCyan)
+                        }
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 3).repeatForever(autoreverses: false)) {
+                                rotationDegree = 0
+                            }
+                        }
+                        
+                        VStack(spacing: 15) {
+                            Text("STABILIZING INTERFACE")
+                                .font(.system(size: 22, weight: .bold, design: .monospaced))
+                                .foregroundColor(.white)
+                            
+                            Text("KEEP THE DEVICE UPRIGHT")
+                                .font(.system(size: 14, design: .monospaced))
+                                .foregroundColor(.xiloCyan)
+                                .opacity(0.8)
+                        }
+                    }
+                }
+                .transition(.opacity)
+            }
         }
         .onAppear {
-            TechSound.play(.glitch)
-            withAnimation(.easeIn(duration: 1.5)) { isVisible = true }
-            // CORREÇÃO: Chamada assíncrona
-            Task { await AudioManager.shared.playFullSoundtrack() }
-            
-            Task {
-                try? await Task.sleep(nanoseconds: 12_500_000_000)
-                withAnimation(.spring()) { showButton = true }
+            startBootSequence()
+        }
+    }
+    
+    // MARK: - Initialization Logic
+    
+    private func startBootSequence() {
+        Task {
+            await AudioManager.shared.playFullSoundtrack()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            withAnimation(.easeInOut(duration: 1.0)) {
+                showOrientationNotice = false
             }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                runOriginalLogic()
+            }
+        }
+    }
+    
+    private func runOriginalLogic() {
+        TechSound.play(.glitch)
+        withAnimation(.easeIn(duration: 1.5)) { isVisible = true }
+        
+        Task {
+            if let asset = NSDataAsset(name: "som") {
+                do {
+                    let tempPlayer = try AVAudioPlayer(data: asset.data)
+                
+                    let nanoseconds = UInt64((tempPlayer.duration * 1_000_000_000) * 0.2)
+                    try await Task.sleep(nanoseconds: nanoseconds)
+                    
+                } catch {
+                    try? await Task.sleep(nanoseconds: 3_000_000_000)
+                }
+            } else {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+            }
+            
+            withAnimation(.spring()) { showButton = true }
         }
     }
 }

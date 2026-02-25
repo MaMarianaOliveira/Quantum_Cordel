@@ -1,10 +1,3 @@
-//
-//  SwiftUIView.swift
-//  QuantumCordel
-//
-//  Created by mcro on 09/01/26.
-//
-
 import SwiftUI
 
 struct ConceptScreen: View {
@@ -36,7 +29,7 @@ struct ConceptScreen: View {
             }.padding(.top, 200)
         }
         .onAppear {
-            // CORREÇÃO: Task + await para o actor (Música 'meio' não reseta)
+        
             Task {
                 await AudioManager.shared.playGameplayLoop()
                 await typeWriterEffect()

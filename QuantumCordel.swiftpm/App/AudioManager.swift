@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 import AudioToolbox
 
-// --- TECHSOUND CONTINUA IGUAL ---
+// --- TECHSOUND
 @MainActor
 class TechSound {
     enum SoundType { case click, move, success, error, glitch, typewriter, staticNoise }
@@ -38,8 +38,6 @@ final actor AudioManager {
     }
     
     func playGameplayLoop() {
-        // Se já estiver tocando 'meio', não faz nada.
-        // Isso impede que a música resete ao mudar de tela.
         if currentTrackName == "meio" && player?.isPlaying == true { return }
         play(name: "meio", volume: 0.4, loop: true)
     }
@@ -48,7 +46,6 @@ final actor AudioManager {
         play(name: "final", volume: 0.8, loop: false)
     }
     
-    // Função de fade opcional, mas vamos evitar usar na transição da Mari
     func fadeOutAndStop() {
         player?.setVolume(0, fadeDuration: 1.0)
         currentTrackName = nil
@@ -59,7 +56,7 @@ final actor AudioManager {
     }
     
     private func play(name: String, volume: Float, loop: Bool) {
-        player?.stop() // Para IMEDIATAMENTE a anterior
+        player?.stop()
         guard let asset = NSDataAsset(name: name) else { return }
         do {
             player = try AVAudioPlayer(data: asset.data)
