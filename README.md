@@ -34,3 +34,20 @@ This playground is inspired by my research in **Complexity Engineering** and my 
 1. Open the project in **Swift Playgrounds 4.6** or **Xcode 26**.
 2. Ensure all assets are loaded in the `Assets.xcassets` folder.
 3. Run on an **iPad simulator** for the best experience.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="QuantumCordel.swiftpm/Assets.xcassets/Introduction.imageset/Introduction.png" width="250px" alt="Introduction"/><br />
+      <b>Introduction</b>
+    </td>
+    <td align="center">
+      <img src="QuantumCordel.swiftpm/Assets.xcassets/Phase1.imageset/Phase1.png" width="250px" alt="Phase 1"/><br />
+      <b>Phase 1: Concepts</b>
+    </td>
+    <td align="center">
+      <img src="QuantumCordel.swiftpm/Assets.xcassets/PhasePQ3.imageset/PhasePQ3.png" width="250px" alt="Phase 2"/><br />
+      <b>Phase 2: PQ3 Defense</b>
+    </td>
+  </tr>
+</table>
