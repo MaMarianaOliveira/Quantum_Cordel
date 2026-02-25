@@ -1,38 +1,36 @@
 # Quantum Cordel 🌵⚛️
 
-**Quantum Cordel** é uma experiência narrativa e educativa desenvolvida em **SwiftUI**. O projeto une a estética tradicional da **literatura de cordel** e da **xilogravura** com conceitos fundamentais da **Computação Quântica**, como Superposição e Emaranhamento.
+**Quantum Cordel** is an immersive narrative and educational experience built entirely with **SwiftUI**. The project bridges the gap between the centuries-old tradition of **Brazilian Cordel literature** and the cutting-edge world of **Post-Quantum Cryptography (PQC)**.
 
-## 🍎 Apple Swift Student Challenge
-Este projeto foi desenvolvido como parte do **Swift Student Challenge 2026**. Ele demonstra o uso de tecnologias Apple para criar uma experiência educacional acessível, transformando conceitos científicos complexos em uma jornada cultural e visualmente rica.
+## 🍎 Apple Swift Student Challenge 2026
+This project was developed for the **Swift Student Challenge 2026**. It showcases the power of Apple's native frameworks to humanize complex scientific concepts—like **Kyber** and **Shor's Algorithm**—through a rich, culturally rooted journey from the heart of Pernambuco, Brazil.
 
-## 📖 Proposta Narrativa
-O jogo é guiado pela personagem **Mariana**, que apresenta o mundo quântico através de rimas e desafios visuais. O objetivo é desmistificar a ideia de que a física de partículas é algo inacessível, trazendo-a para o contexto cultural do sertão brasileiro.
+## 📖 The "Xilo-futurist" Narrative
+Guided by **Mariana**, users explore the "Cyber-Sertão," where the threat of quantum decryption is real. The project aims to demystify the math behind **Apple's PQ3 protocol**, showing that protecting our digital future is as vital as preserving our cultural identity.
 
-## 🎮 Mecânicas Principais
+## 🎮 Core Mechanics
 
-### 1. Superposição Quântica (A Moeda (Cadeado)) 
-* Explora o conceito de coexistência de estados.
-* O jogador aprende que, no nível atômico, as coisas não são apenas "zero ou um", mas uma combinação de vetores.
+### 1. Quantum Threat Simulation (The Lock) 
+* **Shor’s Algorithm**: Demonstrates the vulnerability of classical RSA encryption against quantum computing.
+* **Visual States**: Users witness the real-time shift from a "Secure Lock" to a "Broken Lock" in a simulated quantum environment.
 
-### 2. Emaranhamento (Entangled Grid)
-* **Conexão Instantânea**: O jogador controla Mariana (Azul) e sua Sombra (Rosa) simultaneamente.
-* **Movimento Invertido**: Quando a Mariana se move em um eixo, a Sombra reage na direção oposta, simulando a correlação quântica.
-* **Lógica de Grid**: O desafio ocorre em uma grade 5x5 com limites matemáticos que garantem a precisão dos estados quânticos.
+### 2. Kyber Lattice (Entangled Grid)
+* **Quantum Correlation**: Players control Mariana (Cyan) and her Shadow (Magenta) simultaneously across a geometric grid.
+* **Vector Inversion**: Moving in one axis causes the Shadow to react in the opposite direction, simulating the complexity of Lattice-based cryptography.
+* **Mathematical Precision**: Built on a grid with strict boundaries to reflect the structural foundations of **PQC**.
 
-## 🛠️ Detalhes Técnicos
+## 🛠️ Technical Implementation
 
-* **Framework**: SwiftUI (100%).
-* **Arquitetura**: MVVM (Model-View-ViewModel)
-* **Áudio**: Feedback sonoro imersivo para ações de sucesso, movimento e erro.
+* **SwiftUI & Combine**: Used for 100% of the UI and the reactive logic behind the "intertwined" movement synchronization.
+* **AVFoundation & AudioToolbox**: Orchestrates a regional soundtrack and haptic system feedback for a multisensory experience.
+* **Accessibility (Universal Design)**: 
+    * **VoiceOver Support**: Full semantic integration using `.accessibilityLabel`, `.accessibilityHint`, and `.accessibilityValue`.
+    * **Visual Inclusivity**: High-contrast palette (Cyan/Magenta) designed for low vision and color blindness.
 
-## 🎨 Design e Assets
-O projeto utiliza uma paleta de cores vibrante (**Ciano** e **Magenta**) que contrasta com o fundo escuro de xilogravura, criando uma atmosfera "Cyber-Sertão".
+## 🧪 Engineering Context
+This playground is inspired by my research in **Complexity Engineering** and my thesis on **Open RAN PQC Accelerators** using **Arduino MKR Vidor 4000**.
 
-* **Tipografia**: Uso de fontes monoespaçadas para o cabeçalho e serifadas para a narrativa de cordel.
-
-## 🚀 Como Rodar o Projeto
-
-1. Clone o repositório.
-2. Certifique-se de que os assets de imagem estão na pasta `Assets.xcassets`.
-3. Abra o projeto no **Xcode** ou **Swift Playgrounds**.
-4. Execute no simulador de iPad.
+## 🚀 How to Run
+1. Open the project in **Swift Playgrounds 4.6** or **Xcode 26**.
+2. Ensure all assets are loaded in the `Assets.xcassets` folder.
+3. Run on an **iPad simulator** for the best experience.
